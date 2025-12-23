@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <math.h> // Required for mathematical functions like sqrt and pow
+
+// Function prototypes
+void display_menu();
+double calculate_velocity(double distance, double time);
+double calculate_acceleration(double initial_velocity, double final_velocity, double time);
+double calculate_kinetic_energy(double mass, double velocity);
+
+int main() {
+    int choice;
+    double num1, num2, num3, result;
+
+    do {
+        display_menu();
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        // Switch statement to handle user choices
+        switch (choice) {
+            case 1: // Velocity Calculation
+                printf("Enter distance (m): ");
+                scanf("%lf", &num1);
+                printf("Enter time (s): ");
+                scanf("%lf", &num2);
+                result = calculate_velocity(num1, num2);
+                printf("Result: Velocity = %.4lf m/s\n", result);
+                break;
+            case 2: // Acceleration Calculation
+                printf("Enter initial velocity (m/s): ");
+                scanf("%lf", &num1);
+                printf("Enter final velocity (m/s): ");
+                scanf("%lf", &num2);
+                printf("Enter time (s): ");
+                scanf("%lf", &num3);
+                result = calculate_acceleration(num1, num2, num3);
+                printf("Result: Acceleration = %.4lf m/s^2\n", result);
+                break;
+            case 3: // Kinetic Energy Calculation
+                printf("Enter mass (kg): ");
+                scanf("%lf", &num1);
+                printf("Enter velocity (m/s): ");
+                scanf("%lf", &num2);
+                result = calculate_kinetic_energy(num1, num2);
+                printf("Result: Kinetic Energy = %.4lf Joules (J)\n", result);
+                break;
+            case 4: // Exit
+                printf("Exiting Calculator. Goodbye!\n");
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+        printf("\n"); // Add a newline for better formatting
+    } while (choice != 4);
+
+    return 0;
+}
+
+// Function to display the menu options
+void display_menu() {
+    printf("===== Engineering Physics Lab Calculator =====\n");
+    printf("1. Calculate Velocity\n");
+    printf("2. Calculate Acceleration\n");
+    printf("3. Calculate Kinetic Energy\n");
+    printf("4. Exit\n");
+    printf("--------------------------------------------\n");
+}
+
+// Function to calculate velocity (distance/time)
+double calculate_velocity(double distance, double time) {
+    if (time == 0) {
+        printf("Error: Time cannot be zero for velocity calculation.\n");
+        return 0.0; // Handle division by zero
+    }
+    return distance / time;
+}
+
+// Function to calculate acceleration ((final - initial) / time)
+double calculate_acceleration(double initial_velocity, double final_velocity, double time) {
+    if (time == 0) {
+        printf("Error: Time cannot be zero for acceleration calculation.\n");
+        return 0.0; // Handle division by zero
+    }
+    return (final_velocity - initial_velocity) / time;
+}
+
+// Function to calculate kinetic energy (0.5 * mass * velocity^2)
+double calculate_kinetic_energy(double mass, double velocity) {
+    return 0.5 * mass * pow(velocity, 2); // Use pow() from math.h
+}
